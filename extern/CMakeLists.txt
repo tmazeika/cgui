@@ -2,11 +2,11 @@ include(ExternalProject)
 
 add_subdirectory(SDL)
 
+set(SKIA_LIB_NAME skia)
+set(SKIA_LIB ${CMAKE_STATIC_LIBRARY_PREFIX}${SKIA_LIB_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX})
+
 find_program(PYTHON NAMES python3 python python2)
 find_program(NINJA NAMES ninja)
-
-set(MAIN_LIB_NAME skia)
-set(MAIN_LIB ${CMAKE_STATIC_LIBRARY_PREFIX}${MAIN_LIB_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX})
 
 ExternalProject_Add(skia_build
         PREFIX skia
@@ -14,7 +14,7 @@ ExternalProject_Add(skia_build
         PATCH_COMMAND ${PYTHON} <SOURCE_DIR>/tools/git-sync-deps
         CONFIGURE_COMMAND <SOURCE_DIR>/bin/gn gen --root=<SOURCE_DIR> <BINARY_DIR> "--args=is_official_build=true"
         BUILD_COMMAND ${NINJA} -C <BINARY_DIR>
-        BUILD_BYPRODUCTS <BINARY_DIR>/${MAIN_LIB}
+        BUILD_BYPRODUCTS <BINARY_DIR>/${SKIA_LIB}
         INSTALL_COMMAND ""
         )
 ExternalProject_Get_Property(skia_build SOURCE_DIR BINARY_DIR)
@@ -36,10 +36,10 @@ set(DEP_NAMES
         "webpmux"
         )
 
-foreach(DEP_NAME IN LISTS DEP_NAMES)
+foreach (DEP_NAME IN LISTS DEP_NAMES)
     find_library(LIB${DEP_NAME} ${DEP_NAME} REQUIRED)
     set(DEPS "${DEPS};${LIB${DEP_NAME}}")
-endforeach()
+endforeach ()
 
 set(HEADERS
         ${SOURCE_DIR}/include/c
@@ -66,7 +66,7 @@ set(DEFINITIONS
 
 add_library(skia STATIC IMPORTED GLOBAL)
 set_target_properties(skia PROPERTIES
-        IMPORTED_LOCATION "${BINARY_DIR}/${MAIN_LIB}"
+        IMPORTED_LOCATION "${BINARY_DIR}/${SKIA_LIB}"
         INTERFACE_COMPILE_DEFINITIONS "${DEFINITIONS}"
         INTERFACE_LINK_LIBRARIES "${DEPS}"
         INTERFACE_INCLUDE_DIRECTORIES "${HEADERS};${SOURCE_DIR}"
