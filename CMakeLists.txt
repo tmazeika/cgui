@@ -9,7 +9,4 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_subdirectory(extern)
 add_subdirectory(src)
-
-# TODO: move to examples/
-add_executable(cgui_example1 examples/example1.cpp)
-target_link_libraries(cgui_example1 PRIVATE cgui_lib)
+add_subdirectory(examples)

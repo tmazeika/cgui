@@ -1,4 +1,6 @@
 #include "cgui/cgui.h"
+#include <cstdio>
+#include "GL/gl.h"
 #include "GrDirectContext.h"
 #include "GrGLInterface.h"
 #include "SkCanvas.h"
