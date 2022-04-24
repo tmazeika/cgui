@@ -1,5 +1,5 @@
 #include "cgui/cgui.h"
 
 int main() {
-    init();
+    init("cgui_example1");
 }

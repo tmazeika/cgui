@@ -54,7 +54,7 @@ set(HEADERS
         )
 
 set(DEFINITIONS
-        "NDEBUG"
+        #"NDEBUG"
         "SK_R32_SHIFT=16"
         "SK_ENABLE_SKSL"
         "SK_GAMMA_APPLY_TO_A8"

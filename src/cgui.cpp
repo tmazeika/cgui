@@ -93,9 +93,9 @@ int initGLContext(SDL_Window* window) {
 }
 
 static
-int initWindow() {
+int initWindow(const char* title) {
     SDL_Window* window = SDL_CreateWindow(
-        "cgui",
+        title,
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         800, 600,
         SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
@@ -109,12 +109,12 @@ int initWindow() {
     return result;
 }
 
-int init() {
+int init(const char* title) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
         return -1;
     }
-    int result = initWindow();
+    int result = initWindow(title);
     SDL_Quit();
     return result;
 }
