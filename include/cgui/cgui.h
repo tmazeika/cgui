@@ -1,8 +1,5 @@
-#ifndef CGUI_CGUI_H
-#define CGUI_CGUI_H
+#pragma once
 
-#include "geometry.h"
-
-int init(const char* title);
-
-#endif
+namespace cgui {
+  int init(const char* title);
+}
