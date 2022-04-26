@@ -34,18 +34,18 @@ set(SYS_DEP_NAMES
         "webpmux"
         )
 
-set(MOD_DEP_NAMES
-        "skparagraph"
-        )
+#set(MOD_DEP_NAMES
+#        "skparagraph"
+#        )
 
 foreach (DEP_NAME IN LISTS SYS_DEP_NAMES)
     find_library(LIB${DEP_NAME} ${DEP_NAME} REQUIRED)
     set(DEPS ${DEPS} ${LIB${DEP_NAME}})
 endforeach ()
 
-foreach (DEP_NAME IN LISTS MOD_DEP_NAMES)
-    set(DEPS ${DEPS} ${BINARY_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}${DEP_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX})
-endforeach ()
+#foreach (DEP_NAME IN LISTS MOD_DEP_NAMES)
+#    set(DEPS ${DEPS} ${BINARY_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}${DEP_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX})
+#endforeach ()
 
 set(HEADERS
         ${SOURCE_DIR}/include/c
@@ -59,8 +59,6 @@ set(HEADERS
         ${SOURCE_DIR}/include/ports
         ${SOURCE_DIR}/include/svg
         ${SOURCE_DIR}/include/utils
-        ${SOURCE_DIR}/modules/skparagraph/include
-        ${SOURCE_DIR}/modules/skparagraph/utils # TODO: remove
         )
 
 set(DEFINITIONS

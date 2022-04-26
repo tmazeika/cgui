@@ -1,19 +1,14 @@
-#include "cgui/cgui.h"
+#include <cgui/box.h>
+#include <cgui/cgui.h>
+#include <cgui/geometry.h>
+#include <cgui/sized.h>
+#include <GL/gl.h>
+#include <GrDirectContext.h>
+#include <SkSurface.h>
+#include <SDL.h>
 #include <cstdio>
-#include "GL/gl.h"
-#include "GrDirectContext.h"
-#include "GrGLInterface.h"
-#include "SkCanvas.h"
-#include "SkData.h"
-#include "SkImage.h"
-#include "SkStream.h"
-#include "SkSurface.h"
-#include "SDL.h"
 
-#include "cgui/box/background.h"
-#include "cgui/box/sized.h"
-#include "cgui/geometry/geometry.h"
-#include "canvas.cpp"
+#include "skia_canvas.h"
 
 static void render(SkCanvas* canvas, float width, float height) {
   auto app = cgui::createBackgroundBox(cgui::Color(0.5f, 0.75f, 0.1f),

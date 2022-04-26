@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cgui/box/box.h"
+#include <cgui/box.h>
 #include <memory>
 
 namespace cgui {

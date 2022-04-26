@@ -1,8 +1,9 @@
 #pragma once
 
-#include "cgui/geometry/geometry.h"
-#include "cgui/graphics/canvas.h"
+#include <cgui/canvas.h>
+#include <cgui/geometry.h>
 #include <any>
+#include <memory>
 
 namespace cgui {
   class Box {
@@ -15,4 +16,7 @@ namespace cgui {
 
     virtual void render(const Canvas&, const Rect&) const = 0;
   };
+
+  std::unique_ptr<Box> createBackgroundBox(Color,
+    std::unique_ptr<Box> child = nullptr);
 }

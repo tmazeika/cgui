@@ -1,4 +1,4 @@
-#include "cgui/box/sized.h"
+#include <cgui/sized.h>
 #include <memory>
 
 namespace cgui {

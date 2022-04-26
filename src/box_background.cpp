@@ -1,5 +1,4 @@
-#include "cgui/box/background.h"
-#include <memory>
+#include <cgui/box.h>
 
 namespace cgui {
   class BackgroundBox : public Box {
@@ -10,6 +9,7 @@ namespace cgui {
 
     BackgroundBox(Color color, std::unique_ptr<Box> child)
       : color(color), child(std::move(child)) {
+      //
     }
 
     Size getSize(const Constraints& c) override {

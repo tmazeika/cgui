@@ -1,11 +1,16 @@
 add_library(cgui_lib
+        box_background.cpp
         cgui.cpp
+        color.cpp
+        color_utils.cpp
+        geometry.cpp
+        geometry_utils.cpp
+        sized.cpp
+        skia_canvas.cpp
+        text.cpp
         )
 
-add_subdirectory(box)
-add_subdirectory(geometry)
-add_subdirectory(graphics)
-add_subdirectory(internal)
-
 target_link_libraries(cgui_lib PRIVATE SDL2 skia)
-target_include_directories(cgui_lib PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(cgui_lib
+        PUBLIC ${CMAKE_SOURCE_DIR}/include
+        )

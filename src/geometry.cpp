@@ -1,4 +1,4 @@
-#include "cgui/geometry/geometry.h"
+#include <cgui/geometry.h>
 #include <cassert>
 #include <cmath>
 
@@ -15,7 +15,7 @@ namespace cgui {
     }
   }
 
-  const float UNBOUNDED = INFINITY;
+  constexpr float UNBOUNDED = INFINITY;
 
   bool isUnbounded(float length) {
     return std::isinf(length) == 1;
@@ -69,8 +69,7 @@ namespace cgui {
     assert(min.width <= max.width && min.height <= max.height);
   }
 
-  Constraints::Constraints(Size tightSize) : Constraints(tightSize,
-    tightSize) {
+  Constraints::Constraints(Size tightSize) : Constraints(tightSize, tightSize) {
     //
   }
 

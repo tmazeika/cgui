@@ -1,4 +1,4 @@
-#include "cgui/graphics/color.h"
+#include <cgui/color.h>
 #include <cassert>
 
 namespace cgui {

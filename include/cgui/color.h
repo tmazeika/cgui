@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cstdint>
-
 namespace cgui {
   struct Color {
     const float red;

@@ -1,8 +1,7 @@
 #pragma once
 
-#include "cgui/geometry/geometry.h"
-#include "cgui/graphics/color.h"
-#include <cstdint>
+#include <cgui/color.h>
+#include <cgui/geometry.h>
 
 namespace cgui {
   class Canvas {
