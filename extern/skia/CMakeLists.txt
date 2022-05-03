@@ -5,25 +5,39 @@ set(SKIA_LIB ${CMAKE_STATIC_LIBRARY_PREFIX}${SKIA_LIB_NAME}${CMAKE_STATIC_LIBRAR
 
 find_program(PYTHON NAMES python3 python python2)
 find_program(NINJA NAMES ninja)
-
+if (APPLE)
+    set(CONFIGURE_COMMAND <SOURCE_DIR>/bin/gn gen --root=<SOURCE_DIR> <BINARY_DIR> "--args=is_official_build=true \
+        skia_use_system_icu=false \
+        skia_use_system_harfbuzz=false \
+        skia_use_system_libjpeg_turbo=false \
+        skia_use_system_libpng=false \
+        skia_use_system_libwebp=false")
+else ()
+    set(CONFIGURE_COMMAND <SOURCE_DIR>/bin/gn gen --root=<SOURCE_DIR> <BINARY_DIR> "--args=is_official_build=true")
+endif ()
 ExternalProject_Add(skia_build
         PREFIX skia
         SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/src
         PATCH_COMMAND ${PYTHON} <SOURCE_DIR>/tools/git-sync-deps
-        CONFIGURE_COMMAND <SOURCE_DIR>/bin/gn gen --root=<SOURCE_DIR> <BINARY_DIR> "--args=is_official_build=true"
+        CONFIGURE_COMMAND ${CONFIGURE_COMMAND}
         BUILD_COMMAND ${NINJA} -C <BINARY_DIR>
         BUILD_BYPRODUCTS <BINARY_DIR>/${SKIA_LIB}
         INSTALL_COMMAND ""
         )
 ExternalProject_Get_Property(skia_build SOURCE_DIR BINARY_DIR)
 
+# Compile definitions (not for Skia compilation: only for included Skia headers)
+set(DEFINITIONS
+        "SK_GL"
+        )
+
+# Link libraries
 set(SYS_DEP_NAMES
         "pthread"
         "fontconfig"
         "dl"
         "freetype"
         "expat"
-        "GL"
         "z"
         "harfbuzz"
         "harfbuzz-subset"
@@ -33,20 +47,21 @@ set(SYS_DEP_NAMES
         "webpdemux"
         "webpmux"
         )
-
-#set(MOD_DEP_NAMES
-#        "skparagraph"
-#        )
-
+if (APPLE)
+    list(APPEND SYS_DEP_NAMES
+            "CoreGraphics"
+            "CoreServices"
+            "CoreText"
+            )
+endif ()
 foreach (DEP_NAME IN LISTS SYS_DEP_NAMES)
     find_library(LIB${DEP_NAME} ${DEP_NAME} REQUIRED)
-    set(DEPS ${DEPS} ${LIB${DEP_NAME}})
+    list(APPEND DEPS ${LIB${DEP_NAME}})
 endforeach ()
+find_package(OpenGL REQUIRED)
+list(APPEND DEPS ${OPENGL_LIBRARIES})
 
-#foreach (DEP_NAME IN LISTS MOD_DEP_NAMES)
-#    set(DEPS ${DEPS} ${BINARY_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}${DEP_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX})
-#endforeach ()
-
+# Include directories
 set(HEADERS
         ${SOURCE_DIR}/include/c
         ${SOURCE_DIR}/include/codec
@@ -59,15 +74,8 @@ set(HEADERS
         ${SOURCE_DIR}/include/ports
         ${SOURCE_DIR}/include/svg
         ${SOURCE_DIR}/include/utils
-        )
-
-set(DEFINITIONS
-        #"NDEBUG"
-        "SK_R32_SHIFT=16"
-        "SK_ENABLE_SKSL"
-        "SK_GAMMA_APPLY_TO_A8"
-        "SKIA_IMPLEMENTATION=1"
-        "SK_GL"
+        # TODO: check on Linux
+        ${OPENGL_INCLUDE_DIR}/Headers
         )
 
 add_library(skia STATIC IMPORTED GLOBAL)

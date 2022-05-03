@@ -2,7 +2,7 @@
 #include <cgui/cgui.h>
 #include <cgui/geometry.h>
 #include <cgui/sized.h>
-#include <GL/gl.h>
+#include <gl.h>
 #include <GrDirectContext.h>
 #include <SkSurface.h>
 #include <SDL.h>
