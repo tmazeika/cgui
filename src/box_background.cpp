@@ -7,10 +7,12 @@ namespace cgui {
   public:
     const Color color;
 
-    BackgroundBox(Color color, std::unique_ptr<Box> child)
+    BackgroundBox(const Color& color, std::unique_ptr<Box> child)
       : color(color), child(std::move(child)) {
       //
     }
+
+    ~BackgroundBox() override = default;
 
     Size getSize(const Constraints& c) override {
       if (!this->child) {

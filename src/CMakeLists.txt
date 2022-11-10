@@ -1,4 +1,5 @@
 add_library(cgui_lib
+        api.c
         box_background.cpp
         cgui.cpp
         color.cpp

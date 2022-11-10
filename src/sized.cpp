@@ -13,6 +13,8 @@ namespace cgui {
       : width(width), height(height), child(std::move(child)) {
     }
 
+    ~SizedBox() override = default;
+
     Size getSize(const Constraints& c) override {
       if (!this->child) {
         return c.prefer(this->width, this->height);

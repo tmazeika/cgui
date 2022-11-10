@@ -59,10 +59,7 @@ namespace cgui {
   }
 
   Size Size::rotate90() const {
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "ArgumentSelectionDefects"
     return {this->height, this->width};
-#pragma clang diagnostic pop
   }
 
   Constraints::Constraints(Size min, Size max) : min(min), max(max) {

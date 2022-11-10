@@ -6,8 +6,7 @@
 #include <memory>
 
 namespace cgui {
-  class Box {
-  public:
+  struct Box {
     std::any parentData;
 
     virtual ~Box() = default;
